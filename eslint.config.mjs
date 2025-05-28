@@ -13,7 +13,11 @@ const compat = new FlatCompat({
 });
 
 export default defineConfig([
-  { files: ["**/*.{js,mjs,cjs}"], languageOptions: { globals: globals.browser } },
+  { ignores: ["eslint.config.mjs"] },
+  {
+    files: ["**/*.{js,mjs,cjs}"],
+    languageOptions: { globals: globals.browser },
+  },
   ...compat.extends("airbnb-base"),
   eslintConfigPrettier,
 ]);
