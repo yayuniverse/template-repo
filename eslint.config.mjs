@@ -1,23 +1,63 @@
-import globals from "globals";
-import { defineConfig } from "eslint/config";
-import eslintConfigPrettier from "eslint-config-prettier/flat";
-import { FlatCompat } from "@eslint/eslintrc";
-import path from "path";
-import { fileURLToPath } from "url";
+import path from 'node:path';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import { includeIgnoreFile } from '@eslint/compat';
+import js from '@eslint/js';
+import { configs, plugins } from 'eslint-config-airbnb-extended';
+import { rules as prettierConfigRules } from 'eslint-config-prettier';
+import prettierPlugin from 'eslint-plugin-prettier';
 
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
+export const projectRoot = path.resolve('.');
+export const gitignorePath = path.resolve(projectRoot, '.gitignore');
 
-export default defineConfig([
-  { ignores: ["eslint.config.mjs"] },
+const jsConfig = [
+  // ESLint Recommended Rules
   {
-    files: ["**/*.{js,mjs,cjs}"],
-    languageOptions: { globals: globals.browser },
+    name: 'js/config',
+    ...js.configs.recommended,
   },
-  ...compat.extends("airbnb-base"),
-  eslintConfigPrettier,
-]);
+  // Stylistic Plugin
+  plugins.stylistic,
+  // Import X Plugin
+  plugins.importX,
+  // Airbnb Base Recommended Config
+  ...configs.base.recommended,
+];
+
+const nodeConfig = [
+  // Node Plugin
+  plugins.node,
+  // Airbnb Node Recommended Config
+  ...configs.node.recommended,
+];
+
+const prettierConfig = [
+  // Prettier Plugin
+  {
+    name: 'prettier/plugin/config',
+    plugins: {
+      prettier: prettierPlugin,
+    },
+  },
+  // Prettier Config
+  {
+    name: 'prettier/config',
+    rules: {
+      ...prettierConfigRules,
+      'prettier/prettier': 'error',
+    },
+  },
+];
+
+export default [
+  {
+    ignores: ['eslint.config.mjs']
+  },
+  // Ignore .gitignore files/folder in eslint
+  includeIgnoreFile(gitignorePath),
+  // Javascript Config
+  ...jsConfig,
+  // Node Config
+  ...nodeConfig,
+  // Prettier Config
+  ...prettierConfig,
+];
