@@ -52,7 +52,7 @@ const prettierConfig = [
 export default [
   // Ignore the ESLint config file itself
   {
-    ignores: ["eslint.config.mjs"],
+    ignores: ["eslint.config.mjs", "webpack.*.js"],
   },
   // Ignore .gitignore files/folder in eslint
   includeIgnoreFile(gitignorePath),
