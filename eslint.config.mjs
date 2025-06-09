@@ -24,6 +24,13 @@ const jsConfig = [
   ...configs.base.recommended,
 ];
 
+const nodeConfig = [
+  // Node Plugin
+  plugins.node,
+  // Airbnb Node Recommended Config
+  ...configs.node.recommended,
+];
+
 const prettierConfig = [
   // Prettier Plugin
   {
@@ -51,6 +58,8 @@ export default [
   includeIgnoreFile(gitignorePath),
   // Javascript Config
   ...jsConfig,
+  // Node Config
+  ...nodeConfig,
   // Prettier Config
   ...prettierConfig,
   // Browser environment for source files
