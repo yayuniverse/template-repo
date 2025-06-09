@@ -50,7 +50,7 @@ const prettierConfig = [
 ];
 
 export default [
-  // Ignore the ESLint config file itself
+  // Ignore ESLint and Webpack config files
   {
     ignores: ["eslint.config.mjs", "webpack.*.js"],
   },
