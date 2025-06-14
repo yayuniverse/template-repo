@@ -1,5 +1,6 @@
 import globals from "globals";
 import path from "node:path";
+import babelParser from "@babel/eslint-parser";
 
 import { includeIgnoreFile } from "@eslint/compat";
 import js from "@eslint/js";
@@ -66,7 +67,7 @@ export default [
   {
     files: ["src/**/*.js"],
     languageOptions: {
-      parser: "@babel/eslint-parser",
+      parser: babelParser,
       sourceType: "module",
       ecmaVersion: "latest",
       parserOptions: {
