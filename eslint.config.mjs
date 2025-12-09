@@ -81,4 +81,12 @@ export default [
       },
     },
   },
+  // Import resolver settings
+  {
+    settings: {
+      "import-x/resolver": {
+        node: true,
+      },
+    },
+  },
 ];
